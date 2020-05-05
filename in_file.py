@@ -1,3 +1,5 @@
+# Parses a DNA reference genome from a file in the FASTA format
+# Output genome string
 def read_fa(filename):
     genome = ''
     with open(filename, 'r') as f:
@@ -6,6 +8,8 @@ def read_fa(filename):
                 genome += line.rstrip()
     return genome
 
+# Parses the read and quality strings from a FASTQ file containing sequencing reads
+# Output 2 lists: sequences and their corresponding base qualities
 def read_fastq(filename):
     sequences = []
     qualities = []
