@@ -1,7 +1,7 @@
 # GCTAGCTC
 # TCAA
 
-def BoyerMooreMatching(pattern, boyer_moore_obj, genome):
+def BoyerMooreExactMatching(pattern, boyer_moore_obj, genome):
     '''Find all the positions of a given pattern in genome using BoyerMoore (exact pattern matching)'''
 
     positions = []
