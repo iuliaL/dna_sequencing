@@ -2,7 +2,7 @@
 # TCAA
 
 def BoyerMooreMatching(pattern, boyer_moore_obj, genome):
-    '''Find all the positions of a given pattern in genome using BoyerMoore'''
+    '''Find all the positions of a given pattern in genome using BoyerMoore (exact pattern matching)'''
 
     positions = []
     i = 0

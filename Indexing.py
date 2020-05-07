@@ -1,7 +1,7 @@
 import bisect
 
 class Index(object):
-    ''' Preprocessing (indexing) genome text'''
+    '''Preprocessing (indexing) genome text as kmers and their positions in the genome'''
     def __init__(self, genome, k):
         ''' all kmers in genome along with their occuring positions, sorted alphabetically '''
         self.k = k
@@ -29,6 +29,7 @@ class Index(object):
 # make use of Index object
 # this fn will use an instantiated object of class Index
 def queryIndex(pattern, genome, Index):
+    '''query the genome index to find searched pattern positions in genome (exact pattern matching)'''
     k = Index.k
     positions = []
     possible_starting_positions_for_pattern = Index.query(pattern)
