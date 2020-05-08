@@ -3,19 +3,20 @@ import bisect
 class Index(object):
     '''Preprocessing (indexing) genome text as kmers and their positions in the genome'''
     def __init__(self, genome, k):
-        ''' all kmers in genome along with their occuring positions, sorted alphabetically '''
+        '''Create all kmers in genome along with their occuring positions, sorted alphabetically '''
         self.k = k
         self.index = [] # will be list of tuples
         for i in range(len(genome) - k + 1):
             kmer = genome[i: i + k] 
             self.index.append((kmer, i))
-            self.index.sort()
+            self.index.sort() # alphabetically sort by k-mer
 
     def query(self, pattern):
+        """ Return index hits for first k-mer of p """
         kmer_from_pattern = pattern[:self.k] # take a kmer from searched pattern
         i = bisect.bisect_left(self.index, (kmer_from_pattern, -1)) # putting -1 since -1 would never be an index in self.index
         hits = []
-        while i < len(self.index):
+        while i < len(self.index): # collect matching index entries
             indexed_kmer = self.index[i][0]
             position = self.index[i][1]
             if not indexed_kmer == kmer_from_pattern:
