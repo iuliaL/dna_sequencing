@@ -1,5 +1,6 @@
 # GCTAGCTC
 # TCAA
+# https://www.coursera.org/learn/dna-sequencing/lecture/HYZXj/lecture-boyer-moore-basics
 
 def BoyerMooreExactMatching(pattern, boyer_moore_obj, genome):
     '''Find all the positions of a given pattern in genome using BoyerMoore (exact pattern matching)'''
