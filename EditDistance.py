@@ -23,6 +23,9 @@ def EditDistRecursive(x, y):
 #  A [3, 0, 0, 0, 0, 0]
 #  T [4, 0, 0, 0, 0, 0]
 
+# The Edit distance is the delta between two patterns X and Y that are not necesatily the same length
+# including substitutions, insertions and deletions
+# Hamming distance assumes patterns of same length and allows only for substitutions
 def EditDistance(x, y):
     Matrix = []
     for _ in range(len(x) + 1): # + 1 because the first column and row are for empty string
