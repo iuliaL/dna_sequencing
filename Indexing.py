@@ -9,7 +9,7 @@ class Index(object):
         for i in range(len(genome) - k + 1):
             kmer = genome[i: i + k] 
             self.index.append((kmer, i))
-            self.index.sort() # alphabetically sort by k-mer
+        self.index.sort() # alphabetically sort by k-mer
 
     def query(self, pattern):
         """ Return index hits for first k-mer of p """
@@ -39,6 +39,4 @@ def queryIndex(pattern, genome, Index):
             positions.append(i) # full pattern match
     return positions
 
-# indexed = Index('GCTAGCTCTACGAGTCTA', 3)
-# print(queryIndex('TCTA', 'GCTAGCTCTACGAGTCTA', indexed))
     
