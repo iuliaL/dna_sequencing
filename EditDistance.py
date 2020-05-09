@@ -15,13 +15,13 @@ def EditDistRecursive(x, y):
         return min(distHoriz, distVert, distDiag)
 
 # Dynamic programming ~ create a matrix filled with the edit distances for the substrings already computed to save time
-
-#     A  G  A  T  C  C
-#  G [0, 1, 2, 3, 4, 5]
-#  T [1, 0, 0, 0, 0, 0]
-#  A [2, 0, 0, 0, 0, 0]
-#  A [3, 0, 0, 0, 0, 0]
-#  T [4, 0, 0, 0, 0, 0]
+#                 Y
+#          A  G  A  T  C  C
+#       G [0, 1, 2, 3, 4, 5]
+#   X   T [1, 0, 0, 0, 0, 0]
+#       A [2, 0, 0, 0, 0, 0]
+#       A [3, 0, 0, 0, 0, 0]
+#       T [4, 0, 0, 0, 0, 0]
 
 # The Edit distance is the delta between two patterns X and Y that are not necesatily the same length
 # including substitutions, insertions and deletions
