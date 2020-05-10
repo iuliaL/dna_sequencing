@@ -1,3 +1,7 @@
+from itertools import permutations
+from collections import defaultdict
+import operator
+
 # overlaps that are exact matches 
 
 # a  TAATGTAAT
@@ -20,7 +24,6 @@ def Overlap(a, b, min_length=3):
             return len(a) - start 
         start += 1
 
-from itertools import permutations
 
 # reads are sequence reads, k is minimum length overlap
 def NaiveOverlapMap(reads, k):
@@ -31,7 +34,6 @@ def NaiveOverlapMap(reads, k):
                 overlaps[(a,b)] = overlap_length
         return overlaps
 
-from collections import defaultdict
 
 def OverlapGraph(reads, k=30): # k is minimum length overlap
     kmers_in_reads = defaultdict(set)
@@ -46,7 +48,6 @@ def OverlapGraph(reads, k=30): # k is minimum length overlap
         suffix = read[len(read) - k:]
         # find all reads containing that k-mer (obtained from the corresponding set)
         reads_containing_suffix = kmers_in_reads[suffix]
-        # print(reads_containing_suffix)
         # and call Overlap(a, b, min_length=k) for each
         for r in reads_containing_suffix:
             if r != read: # do not overlap a read with itself
@@ -54,3 +55,18 @@ def OverlapGraph(reads, k=30): # k is minimum length overlap
                 if overlap:
                     edges.append((read, r))
     return edges
+
+
+
+def pick_Maximal_overlap(reads, k):
+    """ Return a pair of reads from the list with a
+        maximal suffix/prefix overlap >= k.  Returns
+        overlap length 0 if there are no such overlaps."""
+    reada, readb = None, None
+    best_olen = 0
+    for a, b in permutations(reads, 2):
+        olen = Overlap(a, b, min_length=k)
+        if olen > best_olen:
+            reada, readb = a, b
+            best_olen = olen
+    return reada, readb, best_olen
