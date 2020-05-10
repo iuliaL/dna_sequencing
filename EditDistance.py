@@ -34,7 +34,7 @@ def EditDistance(x, y):
     Matrix[0] = [i for i in range(len(y) + 1)]
     for i in range(len(x) + 1):
         Matrix[i][0] = i
-    # up until here it's just creating the Matrix
+
     for i in range(1, len(x) + 1):
         for j in range(1, len(y) + 1):
             distHoriz = Matrix[i][j - 1] + 1
@@ -47,5 +47,29 @@ def EditDistance(x, y):
     # Edit distance is the value in the bottom right corner of the matrix
     return Matrix[-1][-1]
 
+# The best approximate match of Pattern GCGTATGC within genome TATTGGCTATACGGTT had 2 edits
+def minEditsToMatch(Pattern, Genome):
+    Matrix = []
+    for _ in range(len(Pattern) + 1): # + 1 because the first column and row are for empty string
+        row = [0] * (len(Genome) + 1)
+        Matrix.append(row)
+
+    for i in range(len(Pattern) + 1):
+        Matrix[i][0] = i
+
+    for i in range(1, len(Pattern) + 1):
+        for j in range(1, len(Genome) + 1):
+            distHoriz = Matrix[i][j - 1] + 1
+            distVert = Matrix[i - 1][j] + 1
+            if Pattern[i - 1] == Genome[j - 1]:
+                distDiag = Matrix[i-1][j-1]
+            else:
+                distDiag = Matrix[i-1][j-1] + 1
+            Matrix[i][j] = min(distHoriz, distVert, distDiag)
+    # for row in Matrix:
+    #     print(row)
+    return min(Matrix[-1])
+
+# print(minEditsToMatch('GCGTATGC', 'TATTGGCTATACGGTT'))  # => 2
 
 

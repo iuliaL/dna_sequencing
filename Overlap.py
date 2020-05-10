@@ -1,3 +1,5 @@
+# overlaps that are exact matches 
+
 # a  TAATGTAAT
 #         ||||
 # b       TAATAAC
@@ -28,3 +30,27 @@ def NaiveOverlapMap(reads, k):
             if overlap_length:
                 overlaps[(a,b)] = overlap_length
         return overlaps
+
+from collections import defaultdict
+
+def OverlapGraph(reads, k=30): # k is minimum length overlap
+    kmers_in_reads = defaultdict(set)
+    edges = []
+    # For every k-mer in a read, we add the read to the set corresponding to that k-mer
+    for read in reads:
+        for i in range(len(read) - k + 1):
+            curr_kmer = read[i:i+k]
+            kmers_in_reads[curr_kmer].add(read)
+
+    for read in reads:
+        suffix = read[len(read) - k:]
+        # find all reads containing that k-mer (obtained from the corresponding set)
+        reads_containing_suffix = kmers_in_reads[suffix]
+        # print(reads_containing_suffix)
+        # and call Overlap(a, b, min_length=k) for each
+        for r in reads_containing_suffix:
+            if r != read: # do not overlap a read with itself
+                overlap = Overlap(read, r, k)
+                if overlap:
+                    edges.append((read, r))
+    return edges
