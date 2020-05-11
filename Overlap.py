@@ -70,3 +70,27 @@ def pick_Maximal_overlap(reads, k):
             reada, readb = a, b
             best_olen = olen
     return reada, readb, best_olen
+
+
+def pick_maximal_overlap_with_precomputed_kmers(reads, k):
+    read_a, read_b = None, None
+    best_olen = 0
+    kmers_in_reads = defaultdict(set)
+    # For every k-mer in a read, we add the read to the set corresponding to that k-mer
+    for read in reads:
+        for i in range(len(read) - k + 1):
+            curr_kmer = read[i:i+k]
+            kmers_in_reads[curr_kmer].add(read)
+
+    for read in reads:
+        current_suffix = read[len(read)-k:]
+        reads_containing_suffix = kmers_in_reads[current_suffix]
+        reads_containing_suffix.discard(read)
+        for r in reads_containing_suffix:
+            if r != read: # do not overlap a read with itself
+                olen = Overlap(read, r, k)
+                if olen > best_olen:
+                    read_a, read_b = read, r
+                    best_olen = olen
+
+    return read_a, read_b, best_olen
