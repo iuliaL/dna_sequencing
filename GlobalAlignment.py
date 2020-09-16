@@ -21,13 +21,13 @@ def GlobalAlignment(x, y):
     for _ in range(len(x) + 1):
         row = [0] * (len(y) + 1)
         Matrix.append(row)
-
+        
     for i in range(1, len(x) + 1):
         Matrix[i][0] = Matrix[i - 1][0] +  penalties[alphabet.index(x[i - 1])][-1]
 
     for i in range(1, len(y) + 1):
         Matrix[0][i] = Matrix[0][i - 1] + penalties[-1][alphabet.index(y[i - 1])]
-
+    print(Matrix)
     # up until here it's just creating the Matrix
     for i in range(1, len(x) + 1):
         for j in range(1, len(y) + 1):
